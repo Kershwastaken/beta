@@ -14,9 +14,7 @@ local aimstuff = combat:CreateFolder("aim stuff") -- Creates the folder(U will p
 
 local movement = combat:CreateFolder("movement") -- Creates the folder(U will put here your buttons,etc)
 
-local unblatant = combat:CreateFolder("unblatant") -- Creates the folder(U will put here your buttons,etc)
-
-
+local unblatant = utility:CreateFolder("unblatant") -- Creates the folder(U will put here your buttons,etc)
 
 local movementbla = blatant:CreateFolder("movement") -- Creates the folder(U will put here your buttons,etc)
 
@@ -82,6 +80,54 @@ aimstuff:Button("aimbot",function()
              players:Button("ESP",function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/Thanosdagamer/thanoshubsource/main/ESP", true))()
                   end)
+
+
+                  movementbla:Button("dinoexploit",function()
+                    
+                      game:GetService("ReplicatedStorage"):FindFirstChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events").useAbility:FireServer("dino_charge")
+                      task.spawn(function()
+                        if GuiLibrary["MainGui"]:FindFirstChild("bar") then return end
+                        if lplr.Character then 
+                          lplr.Character:SetAttribute("SpeedBoost", 3)
+                          local allowed = true
+                          dinoconnection = bedwars["ClientHandler"]:Get(bedwars["DinoRemote"]):Connect(function()
+                            if lplr.Character then 
+                              lplr.Character:SetAttribute("SpeedBoost", nil)
+                            end
+                            allowed = false
+                            dinoconnection:Disconnect()
+                          end)
+                          task.delay(10, function()
+                            if lplr.Character and allowed then 
+                              lplr.Character:SetAttribute("SpeedBoost", nil)
+                            end
+                            if dinoconnection then dinoconnection:Disconnect() end
+                          end)
+                        end
+                        local bar = Instance.new("Frame")
+                        bar.Size = UDim2.new(0.3, 0, 0, 10)
+                        bar.AnchorPoint = Vector2.new(0.5, 0.5)
+                        bar.BorderSizePixel = 0
+                        bar.BackgroundTransparency = 0.5
+                        bar.BackgroundColor3 = Color3.new()
+                        bar.Position = UDim2.new(0.5, 0, 0.75, 0)
+                        bar.Name = "bar"
+                        bar.Parent = GuiLibrary["MainGui"]
+                        local bar2 = bar:Clone()
+                        bar2.Size = UDim2.new(1, 0, 1, 0)
+                        bar2.AnchorPoint = Vector2.new(0, 0)
+                        bar2.Position = UDim2.new(0, 0, 0, 0)
+                        bar2.BackgroundTransparency = 0
+                        bar2.BackgroundColor3 = Color3.new(1, 1, 1)
+                        bar2.Parent = bar
+                        bar2:TweenSize(UDim2.new(0, 0, 1, 0), Enum.EasingDirection.InOut, Enum.EasingStyle.Linear, 60)
+                        task.wait(60)
+                        bar:Destroy()
+                      end)
+                      DinoExploit["ToggleButton"](false)
+                    
+                    end)
+                  
 
 
          
